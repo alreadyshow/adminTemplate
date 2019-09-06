@@ -1,0 +1,21 @@
+{
+  "name": "yii-layui",
+  "version": "1.0.0",
+  "description": "yii-layui",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@139.196.213.47:/opt/gitserver/adminTemplate.git"
+  },
+  "keywords": [
+    "yii-layui"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "jparticles": "^2.0.1"
+  }
+}
