@@ -16,6 +16,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "jparticles": "^2.0.1"
+    "echarts": "^4.2.1",
+    "jparticles": "^2.0.1",
+    "layui-src": "^2.5.4",
+    "zrender": "^4.1.0"
   }
 }

@@ -23,6 +23,19 @@ return [
         ],
     ],
     'components' => [
+        'i18n' => [
+            'translations' => [
+                'norm*' => [
+                    'class' => 'yii\i18n\PhpMessageSource',
+                    //'basePath' => '@app/messages',
+                    //'sourceLanguage' => 'en-US',
+                    'fileMap' => [
+                        'norm' => 'main.php',
+                        'norm/error' => 'error.php',
+                    ],
+                ],
+            ]
+        ],
         'authManager' => [
             'class' => 'yii\rbac\DbManager', // or use 'yii\rbac\DbManager'
         ],
