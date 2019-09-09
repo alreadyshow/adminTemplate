@@ -28,6 +28,7 @@ class TSBankAgentCode extends \yii\db\ActiveRecord
     {
         return [
             [['bank_code', 'bank_name'], 'string', 'max' => 255],
+            [['bank_code', 'bank_name'], 'required'],
         ];
     }
 

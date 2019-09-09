@@ -22,6 +22,11 @@ class  ActiveForm extends \yii\widgets\ActiveForm
     }
 
     /**
+     * @var bool 关闭YII表单脚本
+     */
+    public $enableClientScript = true;
+
+    /**
      * @var array the HTML attributes (name-value pairs) for the form tag.
      * @see \yii\helpers\Html::renderTagAttributes() for details on how attributes are being rendered.
      */

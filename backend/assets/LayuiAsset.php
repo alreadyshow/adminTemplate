@@ -20,7 +20,7 @@ class LayuiAsset extends AssetBundle
         'layui.all.js',
     ];
     public $depends = [
-        'yii\web\YiiAsset',
+        'yii\web\JqueryAsset',
         'backend\assets\NoticeAsset',
     ];
 }
