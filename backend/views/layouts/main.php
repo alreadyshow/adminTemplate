@@ -1,6 +1,7 @@
 <?php
 
 use backend\assets\AppAsset;
+use mdm\admin\components\MenuHelper;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\Breadcrumbs;
@@ -10,7 +11,7 @@ use yii\widgets\Breadcrumbs;
 
 AppAsset::register($this);
 
-$menus = \mdm\admin\components\MenuHelper::getAssignedMenu(Yii::$app->user->getId());
+$menus = MenuHelper::getAssignedMenu(Yii::$app->user->getId());
 $route = $this->context->route;
 foreach ($menus as $i => &$items) {
     if (isset($items['items'])) {
@@ -21,9 +22,10 @@ foreach ($menus as $i => &$items) {
             }
         }
     } else {
-        $items['active'] = strpos($route, trim($menu['url'][0], '/')) === 0;
+        $items['active'] = strpos($route, trim($items['url'][0], '/')) === 0;
     }
 }
+unset($items);
 
 ?>
 <?php $this->beginPage() ?>
@@ -44,6 +46,11 @@ foreach ($menus as $i => &$items) {
                 'style' => 'width:200px;font-size: xx-large;']) ?></div>
 
         <ul class="layui-nav layui-layout-right">
+            <li class="layui-nav-item">
+                <a href="<?= Url::toRoute('site/clear-cache')?>">
+                    清除缓存
+                </a>
+            </li>
             <li class="layui-nav-item">
                 <a href="javascript:;">
                     <?= Html::img('/img/icon.png', ['class' => "layui-nav-img"]) ?>

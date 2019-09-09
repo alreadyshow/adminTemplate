@@ -20,9 +20,10 @@ class FileHelper extends \yii\helpers\FileHelper
      * 清除缓存静态方法
      * @param string $dir 目标文件夹
      * @param array $options
+     * @param string $excludeFile 排除文件
      * @throws ErrorException
      */
-    public static function clearDirectory($dir, $options = []) {
+    public static function clearDirectory($dir, $options = [], $excludeFile = '') {
         if (!is_dir($dir)) {
             return;
         }
@@ -35,6 +36,7 @@ class FileHelper extends \yii\helpers\FileHelper
                     continue;
                 }
                 $path = $dir . DIRECTORY_SEPARATOR . $file;
+                if ($file == $excludeFile) continue;
                 if (is_dir($path)) {
                     static::removeDirectory($path, $options);
                 } else {

@@ -1,6 +1,7 @@
 <?php
 namespace backend\controllers;
 
+use common\helpers\FileHelper;
 use Yii;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
@@ -23,7 +24,7 @@ class SiteController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['login', 'error'],
+                        'actions' => ['login', 'error', 'clear-cache'],
                         'allow' => true,
                     ],
                     [
@@ -98,6 +99,13 @@ class SiteController extends Controller
     {
         Yii::$app->user->logout();
 
+        return $this->goHome();
+    }
+
+    public function actionClearCache()
+    {
+        Yii::$app->cache->flush();
+        FileHelper::clearDirectory(Yii::getAlias("@webroot/assets"), ['traverseSymlinks' => true], '.gitignore');
         return $this->goHome();
     }
 }
