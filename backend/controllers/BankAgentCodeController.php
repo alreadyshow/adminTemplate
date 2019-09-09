@@ -37,7 +37,7 @@ class BankAgentCodeController extends Controller
     {
         $searchModel = new TSBankAgentCodeSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        Yii::$app->session->setFlash("success", '成功');
+
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,

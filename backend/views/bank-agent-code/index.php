@@ -7,7 +7,7 @@ use yii\widgets\Pjax;
 /* @var $searchModel backend\models\TSBankAgentCodeSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('norm', 'Ts Bank Agent Codes');
+$this->title = Yii::t('norm', 'Bank Agent Codes');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="tsbank-agent-code-index">
@@ -15,7 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a(Yii::t('norm', 'Create Ts Bank Agent Code'), ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(Yii::t('norm', 'Create'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php Pjax::begin(); ?>
@@ -25,7 +25,6 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
 
             'id',
             'bank_code',

@@ -15,6 +15,11 @@ return [
     'This email address has already been taken.' => '邮箱已被占用。',
     'rememberMe' => '记住我',
 
+    'Create' => '添加',
+    'Update' => '修改',
+    'Delete' => '删除',
+    'Close' => '关闭',
+
 
     'Bank Code' => '银行编码',
     'Bank Name' => '银行名称',

@@ -1,6 +1,7 @@
 <?php
 namespace backend\widgets;
 
+use backend\assets\NoticeAsset;
 use Yii;
 
 /**
@@ -50,6 +51,7 @@ class Alert extends \yii\bootstrap\Widget
     {
         $session = Yii::$app->session;
         $flashes = $session->getAllFlashes();
+        $base = $this->view->assetManager->getPublishedUrl('@backend/widgets/assets/layuinotice-master/dist');
 
         foreach ($flashes as $type => $flash) {
             if (!isset($this->alertTypes[$type])) {
@@ -59,7 +61,7 @@ class Alert extends \yii\bootstrap\Widget
             foreach ((array) $flash as $i => $message) {
                 $js = <<<JS
 layui.config({
-    base: '/js/dist/'
+    base: '{$base}'+'/'
 }).extend({
     notice: 'notice'
 });
