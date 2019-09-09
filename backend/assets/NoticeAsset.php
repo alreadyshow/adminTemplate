@@ -14,16 +14,16 @@ use yii\web\AssetBundle;
 class NoticeAsset extends AssetBundle
 {
 
-    public $sourcePath = '@backend/widgets/assets';
+    public $sourcePath = '@backend/widgets/assets/layuinotice-master/dist';
 
     public $basePath = '@webroot/assets';
 
     public $css = [
-        'layuinotice-master/dist/notice.css',
+        'notice.css',
     ];
 
     public $js = [
-        'layuinotice-master/dist/notice.js',
+        'notice.js',
     ];
 
     public $depends = [

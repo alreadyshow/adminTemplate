@@ -14,17 +14,15 @@ use yii\web\AssetBundle;
 class FormAsset extends AssetBundle
 {
 
-    public $sourcePath = '@backend/widgets/assets';
+    public $sourcePath = '@backend/widgets/assets/layui-formselects/dist';
 
     public $basePath = '@webroot/assets';
 
     public $css = [
-        'layui-formselects/dist/formSelects-v4.css',
-        'form.css',
+        'formSelects-v4.css',
     ];
     public $js = [
-        'layui-formselects/dist/formSelects-v4.min.js',
-        'form.js',
+        'formSelects-v4.min.js',
     ];
     public $depends = [
         'backend\assets\AppAsset'

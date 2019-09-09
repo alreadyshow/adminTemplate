@@ -21,6 +21,6 @@ class LayuiAsset extends AssetBundle
     ];
     public $depends = [
         'yii\web\YiiAsset',
-        'backend\assets\JparticlesAsset',
+        'backend\assets\NoticeAsset',
     ];
 }
