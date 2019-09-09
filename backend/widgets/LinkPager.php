@@ -5,7 +5,8 @@
  * Date: 2018/11/8
  * Time: 10:16
  */
-namespace app\widgets;
+
+namespace backend\widgets;
 
 class LinkPager extends \yii\widgets\LinkPager
 {

@@ -5,12 +5,14 @@
  * Date: 2018/11/8
  * Time: 12:42
  */
-namespace app\widgets;
 
-use app\assets\FormAsset;
+namespace backend\widgets;
+
+use backend\assets\FormAsset;
 use Yii;
 use yii\helpers\ArrayHelper;
 use yii\base\Model;
+
 class  ActiveForm extends \yii\widgets\ActiveForm
 {
     public function init()
@@ -28,7 +30,7 @@ class  ActiveForm extends \yii\widgets\ActiveForm
      * @var string the default field class name when calling [[field()]] to create a new field.
      * @see fieldConfig
      */
-    public $fieldClass = 'app\widgets\ActiveField';
+    public $fieldClass = 'backend\widgets\ActiveField';
     /**
      * @var array|\Closure the default configuration used by [[field()]] when creating a new field object.
      * This can be either a configuration array or an anonymous function returning a configuration array.
@@ -43,7 +45,7 @@ class  ActiveForm extends \yii\widgets\ActiveForm
      * @see fieldClass
      */
     public $fieldConfig = [
-        'labelOptions' => ['class'=>'layui-form-label']
+        'labelOptions' => ['class' => 'layui-form-label']
     ];
 
     /**
@@ -71,7 +73,7 @@ class  ActiveForm extends \yii\widgets\ActiveForm
             'model' => $model,
             'attribute' => $attribute,
             'form' => $this,
-            'options'=>['class'=>'layui-form-item']
-        ],$options));
+            'options' => ['class' => 'layui-form-item']
+        ], $options));
     }
 }

@@ -9,19 +9,18 @@ use yii\web\AssetBundle;
 class LayuiAssets extends AssetBundle
 {
 
-    public $sourcePath = '@node';
+    public $sourcePath = '@node/layui-src/dist';
 
     public $basePath = '@webroot/assets';
 
     public $css = [
-        'layui-src/dist/css/layui.css'
+        'css/layui.css'
     ];
     public $js = [
-        'layui-src/dist/layui.all.js',
-        'jparticles/production/jparticles.js',
-        'jparticles/production/particle.js'
+        'layui.all.js',
     ];
     public $depends = [
-        'yii\web\YiiAsset'
+        'yii\web\YiiAsset',
+        'backend\assets\JparticlesAssets',
     ];
 }

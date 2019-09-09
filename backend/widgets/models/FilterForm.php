@@ -5,7 +5,8 @@
  * Date: 2018/11/15
  * Time: 10:16
  */
-namespace app\widgets\models;
+
+namespace backend\widgets\models;
 
 class FilterForm extends \yii\base\Model
 {
@@ -27,7 +28,7 @@ class FilterForm extends \yii\base\Model
     {
         return [
             // username and password are both required
-            [['date','join', 'system','partner', 'platform'], 'safe']
+            [['date', 'join', 'system', 'partner', 'platform'], 'safe']
         ];
     }
 
@@ -37,10 +38,10 @@ class FilterForm extends \yii\base\Model
     public function attributeLabels()
     {
         return [
-            'join'=>'合作方',
-            'system'=>'设备',
-            'partner'=>'渠道',
-            'platform'=>'马甲'
+            'join' => '合作方',
+            'system' => '设备',
+            'partner' => '渠道',
+            'platform' => '马甲'
         ];
     }
 }

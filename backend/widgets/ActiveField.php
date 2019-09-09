@@ -5,12 +5,14 @@
  * Date: 2018/11/8
  * Time: 12:27
  */
-namespace app\widgets;
+
+namespace backend\widgets;
+
 use yii\helpers\Html;
 
 class ActiveField extends \yii\widgets\ActiveField
 {
-    public $inputOptions = ['class'=>'layui-input'];
+    public $inputOptions = ['class' => 'layui-input'];
 
     /**
      * @var string the template that is used to arrange the label, the input field, the error message and the hint text.
@@ -60,7 +62,7 @@ class ActiveField extends \yii\widgets\ActiveField
     public function checkboxList($items, $options = [])
     {
         $this->template = "{label}\n<div class=\"layui-input-block\">{input}</div>\n{hint}\n{error}";
-        return parent::checkboxList($items,$options);
+        return parent::checkboxList($items, $options);
     }
 
     /**
@@ -73,7 +75,7 @@ class ActiveField extends \yii\widgets\ActiveField
      *
      * @return $this the field object itself.
      */
-    public function textarea($options = ['class'=>'layui-textarea'])
+    public function textarea($options = ['class' => 'layui-textarea'])
     {
         $options = array_merge($this->inputOptions, $options);
 
@@ -117,7 +119,7 @@ class ActiveField extends \yii\widgets\ActiveField
     public function multipleDropDownList($items, $options = [])
     {
         $options = array_merge($this->inputOptions, $options, [
-            "xm-select-search"=>true,
+            "xm-select-search" => true,
             "xm-select-search-type" => 'dl',
             'xm-select-height' => '36px'
         ]);

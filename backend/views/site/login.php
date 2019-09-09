@@ -15,10 +15,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
         <div class="layui-card">
-            <div class="layui-card-header">
-                <div class="admin-login-box">
-                    <h1><?= Html::encode($this->title) ?></h1>
-                </div>
+            <div class="layui-card-header admin-login-box">
+                <h1><?= Html::encode($this->title) ?></h1>
             </div>
             <div class="layui-card-body" style="margin-top: 20px;">
                 <?php $form = ActiveForm::begin([
