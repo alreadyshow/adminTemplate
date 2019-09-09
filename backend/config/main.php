@@ -19,7 +19,7 @@ return [
             'class' => 'mdm\admin\Module',
             'layout' => 'left-menu', // defaults to null, using the application's layout without the menu
             // other available values are 'right-menu' and 'top-menu'
-            'mainLayout' => '@app/views/layouts/main.php',
+            //'mainLayout' => '@app/views/layouts/main.php',
         ],
     ],
     'components' => [
@@ -76,7 +76,8 @@ return [
         'as access' => [
             'class' => 'mdm\admin\components\AccessControl',
             'allowActions' => [
-                'site/*',
+                'site/login',
+                'site/error',
                 'admin/*',
                 // The actions listed here will be allowed to everyone including guests.
                 // So, 'admin/*' should not appear here in the production, of course.

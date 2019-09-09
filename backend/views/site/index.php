@@ -6,7 +6,6 @@ $this->title = Yii::$app->name;
 
 use yii\helpers\Html;
 
-
 ?>
 <div class="site-index">
 

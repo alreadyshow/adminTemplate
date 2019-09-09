@@ -9,6 +9,22 @@ use yii\widgets\Breadcrumbs;
 /* @var $content string */
 
 AppAsset::register($this);
+
+$menus = \mdm\admin\components\MenuHelper::getAssignedMenu(Yii::$app->user->getId());
+$route = $this->context->route;
+foreach ($menus as $i => &$items) {
+    if (isset($items['items'])) {
+        foreach ($items['items'] as $j => $menu) {
+            if (strpos($route, trim($menu['url'][0], '/')) === 0) {
+                $items['items'][$j]['active'] = true;
+                $items['active'] = true;
+            }
+        }
+    } else {
+        $items['active'] = strpos($route, trim($menu['url'][0], '/')) === 0;
+    }
+}
+
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -24,6 +40,9 @@ AppAsset::register($this);
 <?php $this->beginBody() ?>
 <div class="layui-layout layui-layout-admin">
     <div class="layui-header">
+        <div class="layui-logo"><?= Html::a('<span class="logo-lg" style="color: white">' . '游戏管理' . '</span>', Yii::$app->homeUrl, [
+                'style' => 'width:200px;font-size: xx-large;']) ?></div>
+
         <ul class="layui-nav layui-layout-right">
             <li class="layui-nav-item">
                 <a href="javascript:;">
@@ -48,12 +67,13 @@ AppAsset::register($this);
         <div class="layui-side-scroll">
             <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
             <ul class="layui-nav layui-nav-tree" lay-filter="test">
-                <?php foreach ([] as $item): ?>
-                    <li class="layui-nav-item <?= $item['active'] ? 'layui-nav-itemed' : '' ?>">
+                <?php foreach ($menus as $item): ?>
+                    <li class="layui-nav-item <?= (isset($item['active']) && $item['active'] == true) ? 'layui-nav-itemed' : '' ?>">
                         <a class="" href="javascript:;"><?= $item['label'] ?></a>
                         <dl class="layui-nav-child">
                             <?php foreach ($item['items'] as $child): ?>
-                                <dd class="<?= $child['active'] ? 'layui-this' : '' ?>"><a
+                                <dd class="<?= (isset($item['active']) && $item['active'] == true) ? 'layui-this' : '' ?>">
+                                    <a
                                             href="<?= Url::toRoute($child['url']) ?>"><?= $child['label'] ?></a></dd>
                             <?php endforeach; ?>
                         </dl>
