@@ -11,7 +11,7 @@ namespace backend\assets;
 
 use yii\web\AssetBundle;
 
-class JparticlesAssets extends AssetBundle
+class JparticlesAsset extends AssetBundle
 {
     public $sourcePath = '@node/jparticles/production';
 

@@ -105,13 +105,17 @@ foreach ($menus as $i => &$items) {
         </div>
         <div class="layui-row admin-content">
             <div class="layui-col-xs12">
+                <div class="layui-col-xs10">
+                    <?= \backend\widgets\Alert::widget()?>
+
+                </div>
                 <?= $content ?>
             </div>
         </div>
     </div>
     <div class="layui-footer">
         <!-- 底部固定区域 -->
-        &copy; Admin Template <?= date('Y') ?> - <?= Yii::powered() ?>
+        &copy; Admin Template <?= date('Y') ?> - <?= Yii::$app->name ?>
     </div>
 </div>
 

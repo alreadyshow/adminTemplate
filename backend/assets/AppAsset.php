@@ -15,8 +15,9 @@ class AppAsset extends AssetBundle
         '/css/site.css',
     ];
     public $js = [
+        '/js/app.js',
     ];
     public $depends = [
-        'backend\assets\LayuiAssets'
+        'backend\assets\LayuiAsset'
     ];
 }

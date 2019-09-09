@@ -14,4 +14,10 @@ return [
     'This username has already been taken.' => '用户名已被占用。',
     'This email address has already been taken.' => '邮箱已被占用。',
     'rememberMe' => '记住我',
+
+
+    'Bank Code' => '银行编码',
+    'Bank Name' => '银行名称',
+    'Create Bank Agent Code' => '创建银行编码',
+    'Bank Agent Codes' => '银行编码',
 ];

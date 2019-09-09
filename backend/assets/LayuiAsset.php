@@ -6,7 +6,7 @@ namespace backend\assets;
 
 use yii\web\AssetBundle;
 
-class LayuiAssets extends AssetBundle
+class LayuiAsset extends AssetBundle
 {
 
     public $sourcePath = '@node/layui-src/dist';
@@ -21,6 +21,6 @@ class LayuiAssets extends AssetBundle
     ];
     public $depends = [
         'yii\web\YiiAsset',
-        'backend\assets\JparticlesAssets',
+        'backend\assets\JparticlesAsset',
     ];
 }
