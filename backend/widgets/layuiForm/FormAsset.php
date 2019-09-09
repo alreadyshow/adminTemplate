@@ -1,20 +1,14 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: non
- * Date: 2019/9/9
- * Time: 10:38
- */
 
-namespace backend\assets;
+
+namespace backend\widgets\layuiForm;
 
 
 use yii\web\AssetBundle;
 
 class FormAsset extends AssetBundle
 {
-
-    public $sourcePath = '@backend/widgets/assets/layui-formselects/dist';
+    public $sourcePath = __DIR__ . '/assets/layui-formselects/dist';
 
     public $basePath = '@webroot/assets';
 

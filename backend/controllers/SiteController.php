@@ -106,6 +106,7 @@ class SiteController extends Controller
     {
         Yii::$app->cache->flush();
         FileHelper::clearDirectory(Yii::getAlias("@webroot/assets"), ['traverseSymlinks' => true], '.gitignore');
+        Yii::$app->session->setFlash("success", '清理成功！');
         return $this->goHome();
     }
 }

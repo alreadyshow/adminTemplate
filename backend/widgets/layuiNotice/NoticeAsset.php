@@ -1,20 +1,14 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: non
- * Date: 2019/9/9
- * Time: 15:27
- */
 
-namespace backend\assets;
+
+namespace backend\widgets\layuiNotice;
 
 
 use yii\web\AssetBundle;
 
 class NoticeAsset extends AssetBundle
 {
-
-    public $sourcePath = '@backend/widgets/assets/layuinotice-master/dist';
+    public $sourcePath = __DIR__ . '/assets/layuinotice-master/dist';
 
     public $basePath = '@webroot/assets';
 

@@ -6,7 +6,7 @@
  * Time: 10:16
  */
 
-namespace backend\widgets\models;
+namespace backend\widgets\layuiForm;
 
 class FilterForm extends \yii\base\Model
 {

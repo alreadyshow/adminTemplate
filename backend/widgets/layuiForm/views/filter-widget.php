@@ -6,7 +6,7 @@
  * Time: 18:15
  */
 
-use \backend\widgets\ActiveForm;
+use \backend\widgets\layuiForm\ActiveForm;
 use \yii\helpers\Html;
 
 ?>

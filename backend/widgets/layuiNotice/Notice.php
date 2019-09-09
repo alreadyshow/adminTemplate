@@ -1,8 +1,9 @@
 <?php
-namespace backend\widgets;
 
-use backend\assets\NoticeAsset;
+namespace backend\widgets\layuiNotice;
+
 use Yii;
+use yii\bootstrap\Widget;
 
 /**
  * Alert widget renders a message from session flash. All flash messages are displayed
@@ -23,7 +24,7 @@ use Yii;
  * @author Kartik Visweswaran <kartikv2@gmail.com>
  * @author Alexander Makarov <sam@rmcreative.ru>
  */
-class Alert extends \yii\bootstrap\Widget
+class Notice extends Widget
 {
     /**
      * @var array the alert types configuration for the flash messages.
@@ -32,9 +33,9 @@ class Alert extends \yii\bootstrap\Widget
      * - value: the bootstrap alert type (i.e. danger, success, info, warning)
      */
     public $alertTypes = [
-        'error'   => 'error',
+        'error' => 'error',
         'success' => 'success',
-        'info'    => 'info',
+        'info' => 'info',
         'warning' => 'warning'
     ];
     /**
@@ -51,17 +52,17 @@ class Alert extends \yii\bootstrap\Widget
     {
         $session = Yii::$app->session;
         $flashes = $session->getAllFlashes();
-        $base = $this->view->assetManager->getPublishedUrl('@backend/widgets/assets/layuinotice-master/dist');
+        $base = $this->view->assetManager->getPublishedUrl($this->view->assetBundles[NoticeAsset::className()]->sourcePath);
 
         foreach ($flashes as $type => $flash) {
             if (!isset($this->alertTypes[$type])) {
                 continue;
             }
 
-            foreach ((array) $flash as $i => $message) {
+            foreach ((array)$flash as $i => $message) {
                 $js = <<<JS
 layui.config({
-    base: '{$base}'+'/'
+    base: '{$base}/'
 }).extend({
     notice: 'notice'
 });

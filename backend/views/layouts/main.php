@@ -1,6 +1,7 @@
 <?php
 
 use backend\assets\AppAsset;
+use backend\widgets\layuiNotice\Notice;
 use mdm\admin\components\MenuHelper;
 use yii\helpers\Html;
 use yii\helpers\Url;
@@ -113,7 +114,7 @@ unset($items);
         <div class="layui-row admin-content">
             <div class="layui-col-xs12">
                 <div class="layui-col-xs10">
-                    <?= \backend\widgets\Alert::widget()?>
+                    <?= Notice::widget()?>
 
                 </div>
                 <?= $content ?>

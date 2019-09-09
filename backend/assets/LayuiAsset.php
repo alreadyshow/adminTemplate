@@ -3,7 +3,6 @@
 
 namespace backend\assets;
 
-
 use yii\web\AssetBundle;
 
 class LayuiAsset extends AssetBundle
@@ -21,6 +20,6 @@ class LayuiAsset extends AssetBundle
     ];
     public $depends = [
         'yii\web\JqueryAsset',
-        'backend\assets\NoticeAsset',
+        'backend\widgets\layuiNotice\NoticeAsset',
     ];
 }

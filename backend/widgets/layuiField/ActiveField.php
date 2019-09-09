@@ -6,8 +6,9 @@
  * Time: 12:27
  */
 
-namespace backend\widgets;
+namespace backend\widgets\layuiField;
 
+use backend\widgets\layuiForm\ActiveForm;
 use yii\helpers\Html;
 
 class ActiveField extends \yii\widgets\ActiveField

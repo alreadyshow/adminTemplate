@@ -8,8 +8,8 @@
 
 namespace backend\widgets;
 
-use backend\assets\FormAsset;
-use backend\widgets\models\FilterForm;
+use backend\widgets\layuiForm\FormAsset;
+use backend\widgets\layuiForm\FilterForm;
 use Yii;
 
 class FilterWidget extends \yii\base\Widget

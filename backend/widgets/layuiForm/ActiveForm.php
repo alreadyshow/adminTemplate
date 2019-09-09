@@ -1,19 +1,15 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: xuguoliang
- * Date: 2018/11/8
- * Time: 12:42
- */
 
-namespace backend\widgets;
 
-use backend\assets\FormAsset;
+namespace backend\widgets\layuiForm;
+
+
+use backend\widgets\layuiField\ActiveField;
 use Yii;
-use yii\helpers\ArrayHelper;
 use yii\base\Model;
+use yii\helpers\ArrayHelper;
 
-class  ActiveForm extends \yii\widgets\ActiveForm
+class ActiveForm extends \yii\widgets\ActiveForm
 {
     public function init()
     {
@@ -81,4 +77,5 @@ class  ActiveForm extends \yii\widgets\ActiveForm
             'options' => ['class' => 'layui-form-item']
         ], $options));
     }
+
 }
