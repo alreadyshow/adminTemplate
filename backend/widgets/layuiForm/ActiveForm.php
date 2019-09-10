@@ -23,6 +23,11 @@ class ActiveForm extends \yii\widgets\ActiveForm
     public $layuiJs;
 
     /**
+     * @var array|string layui 自定义表单验证
+     */
+    public $verify;
+
+    /**
      * @var bool 关闭YII表单脚本
      */
     public $enableClientScript = true;
@@ -87,8 +92,56 @@ class ActiveForm extends \yii\widgets\ActiveForm
      */
     public function registerClientScript()
     {
+        $id = $this->options['id'];
+        $options = $this->getClientOptions();
+        $attributes = Json::htmlEncode($this->attributes);
+        $verify = '';
+        if (is_string($options['verify'])) {
+            $verify = $options['verify'];
+        } elseif (is_array($options['verify'])) {
+            foreach ($options['verify'] as $item) {
+                $verify .= $item;
+            }
+        }
+
         $view = $this->getView();
-        $view->registerJs($this->layuiJs);
+        $js = <<<JS
+$this->layuiJs
+
+var form = layui.form;
+
+$verify
+JS;
+
+        $view->registerJs($js);
+    }
+
+    /**
+     * Returns the options for the form JS widget.
+     * @return array the options.
+     */
+    protected function getClientOptions()
+    {
+        $options = [
+            'encodeErrorSummary' => $this->encodeErrorSummary,
+            'errorSummary' => '.' . implode('.', preg_split('/\s+/', $this->errorSummaryCssClass, -1, PREG_SPLIT_NO_EMPTY)),
+            'validateOnSubmit' => $this->validateOnSubmit,
+            'errorCssClass' => $this->errorCssClass,
+            'successCssClass' => $this->successCssClass,
+            'validatingCssClass' => $this->validatingCssClass,
+            'ajaxParam' => $this->ajaxParam,
+            'ajaxDataType' => $this->ajaxDataType,
+            'scrollToError' => $this->scrollToError,
+            'scrollToErrorOffset' => $this->scrollToErrorOffset,
+            'validationStateOn' => $this->validationStateOn,
+            'verify' => $this->verify,
+        ];
+        if ($this->validationUrl !== null) {
+            $options['validationUrl'] = Url::to($this->validationUrl);
+        }
+
+        // only get the options that are different from the default ones (set in yii.activeForm.js)
+        return $options;
     }
 
 }

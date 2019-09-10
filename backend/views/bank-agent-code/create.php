@@ -15,14 +15,24 @@ $this->params['breadcrumbs'][] = $this->title;
 
         <h1><?= Html::encode($this->title) ?></h1>
 
-        <?php $form = ActiveForm::begin(); ?>
+        <?php $form = ActiveForm::begin([
+            'verify' => [
+                'title' => "form.verify({
+    title: function (value) {
+      if (value.length < 5) {
+        return '标题也太短了吧';
+      }
+    }
+  });"
+            ]
+        ]); ?>
 
         <?= $form->field($model, 'bank_code')->dropDownList([
             1 => 'aaa',
             2 => 'bbb',
             3 => 'ccc',
             4 => 'ddd',
-        ]) ?>
+        ], ['lay-verify' => 'title']) ?>
 
         <?= $form->field($model, 'bank_name')->dateInput(['id' => 'date', 'placeholder' => 'yyyy-MM-dd', 'autocomplete' => 'off'], [
             'range' => '~',
