@@ -10,9 +10,11 @@ namespace backend\widgets\layuiField;
 
 use backend\widgets\layuiForm\ActiveForm;
 use yii\helpers\Html;
+use yii\web\JsExpression;
 
 class ActiveField extends \yii\widgets\ActiveField
 {
+
     public $inputOptions = ['class' => 'layui-input'];
 
     /**
@@ -20,6 +22,35 @@ class ActiveField extends \yii\widgets\ActiveField
      * The following tokens will be replaced when [[render()]] is called: `{label}`, `{input}`, `{error}` and `{hint}`.
      */
     public $template = "{label}\n<div class=\"layui-input-inline\">{input}</div>\n{hint}\n{error}";
+
+    /**
+     * @var array the default options for the label tags. The parameter passed to [[label()]] will be
+     * merged with this property when rendering the label tag.
+     * @see \yii\helpers\Html::renderTagAttributes() for details on how attributes are being rendered.
+     */
+    public $labelOptions = ['class' => 'layui-form-label'];
+
+    /**
+     * @var array the default options for the error tags. The parameter passed to [[error()]] will be
+     * merged with this property when rendering the error tag.
+     * The following special options are recognized:
+     *
+     * - `tag`: the tag name of the container element. Defaults to `div`. Setting it to `false` will not render a container tag.
+     *   See also [[\yii\helpers\Html::tag()]].
+     * - `encode`: whether to encode the error output. Defaults to `true`.
+     *
+     * If you set a custom `id` for the error element, you may need to adjust the [[$selectors]] accordingly.
+     *
+     * @see \yii\helpers\Html::renderTagAttributes() for details on how attributes are being rendered.
+     */
+    public $errorOptions = ['class' => 'layui-form-mid err-block'];
+
+    /**
+     * @var bool adds aria HTML attributes `aria-required` and `aria-invalid` for inputs
+     * @since 2.0.11
+     */
+    public $addAriaAttributes = true;
+
 
     /**
      * Generates a tag that contains the first validation error of [[attribute]].
@@ -136,4 +167,93 @@ class ActiveField extends \yii\widgets\ActiveField
         return $this;
     }
 
+    /**
+     * Renders a text input.
+     * This method will generate the `name` and `value` tag attributes automatically for the model attribute
+     * unless they are explicitly specified in `$options`.
+     * @param array $options the tag options in terms of name-value pairs. These will be rendered as
+     * the attributes of the resulting tag. The values will be HTML-encoded using [[Html::encode()]].
+     *
+     * The following special options are recognized:
+     *
+     * - `maxlength`: int|bool, when `maxlength` is set `true` and the model attribute is validated
+     *   by a string validator, the `maxlength` option will take the value of [[\yii\validators\StringValidator::max]].
+     *   This is available since version 2.0.3.
+     *
+     * Note that if you set a custom `id` for the input element, you may need to adjust the value of [[selectors]] accordingly.
+     *
+     * @return $this the field object itself.
+     */
+    public function dateInput($options = [], $conf = [])
+    {
+        $options = array_merge($this->inputOptions, $options);
+
+        if ($this->form->validationStateOn === ActiveForm::VALIDATION_STATE_ON_INPUT) {
+            $this->addErrorClassIfNeeded($options);
+        }
+
+        $this->addAriaAttributes($options);
+        $this->adjustLabelFor($options);
+        $this->parts['{input}'] = Html::activeTextInput($this->model, $this->attribute, $options);
+
+        $id = $this->getInputId();
+        $str = '';
+        if ($conf) {
+            $keyWords = ['type', 'range', 'format', 'value', 'isInitValue', 'min', 'max', 'trigger', 'show', 'position', 'zIndex', 'showBottom', 'btns', 'lang', 'theme', 'calendar', 'mark'];
+
+            foreach ($conf as $key => $item) {
+                if (!in_array($key, $keyWords)) continue;
+                if (in_array($key, ['btns', 'mark'])) {
+                    if (!is_array($item)) continue;
+                    $str .= ",{$key}: [";
+                    foreach ($item as $value) {
+                        $str .= "'{$value}',";
+                    }
+                    $str = rtrim($str,',');
+                    $str .= "]";
+                }else{
+                    $str .= ",{$key}: '{$item}'";
+                }
+            }
+        }
+        $js = <<<JS
+var laydate = layui.laydate;
+
+//日期
+  laydate.render({
+    elem: '#{$id}'
+    {$str}
+  });
+JS;
+
+        $this->form->layuiJs =  new JsExpression($js);
+        return $this;
+    }
+
+    /**
+     * Adds aria attributes to the input options.
+     * @param $options array input options
+     * @since 2.0.11
+     */
+    protected function addAriaAttributes(&$options)
+    {
+        if ($this->addAriaAttributes) {
+            if (!isset($options['required']) && $this->model->isAttributeRequired($this->attribute)) {
+                $options['required'] = 'true';
+                (isset($options['lay-verify'])) ? $options['lay-verify'] = "required|" . $options['lay-verify'] : $options['lay-verify'] = 'required';
+            }
+            if (!isset($options['invalid']) && $this->model->hasErrors($this->attribute)) {
+                $options['invalid'] = 'true';
+            }
+        }
+    }
+
+    /**
+     * Returns the JS options for the field.
+     * @return array the JS options.
+     */
+    protected function getClientOptions()
+    {
+        return [];
+    }
 }

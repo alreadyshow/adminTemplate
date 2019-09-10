@@ -1,5 +1,5 @@
 ;(function(){
-	typeof(require) != 'undefined' ? SyntaxHighlighter = require('adminTemplate/backend/widgets/layuiForm/assets/layui-formselects/docs/public/SyntaxHighlighter-3.0.83/shCore').SyntaxHighlighter : null;
+	typeof(require) != 'undefined' ? SyntaxHighlighter = require('shCore').SyntaxHighlighter : null;
 
 	function Brush() {
 		//JS

@@ -8,6 +8,10 @@ body {
     width: 375px;
 }
 
+.err-block {
+    color: #FF5722;
+}
+
 .help-block{
     color:#FFB800;
 }

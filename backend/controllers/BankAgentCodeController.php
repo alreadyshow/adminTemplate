@@ -66,7 +66,11 @@ class BankAgentCodeController extends Controller
     {
         $model = new TSBankAgentCode();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
+            if (!$model->save()) {
+                Yii::$app->session->setFlash('warning', $model->getErrorSummary(1)[0]);
+                return $this->redirect('index');
+            }
             return $this->redirect(['view', 'id' => $model->id]);
         }
 

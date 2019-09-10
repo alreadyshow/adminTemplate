@@ -6,9 +6,9 @@ namespace backend\widgets\layuiForm;
 
 use yii\web\AssetBundle;
 
-class FormAsset extends AssetBundle
+class SelectAsset extends AssetBundle
 {
-    public $sourcePath = __DIR__ . '/assets/layui-formselects/dist';
+    public $sourcePath = __DIR__ . '/assets/layui-formSelects-master/dist';
 
     public $basePath = '@webroot/assets';
 
