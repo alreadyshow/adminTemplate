@@ -17,7 +17,12 @@ $this->params['breadcrumbs'][] = $this->title;
 
         <?php $form = ActiveForm::begin(); ?>
 
-        <?php //echo $form->field($model, 'bank_code')->textInput(['maxlength' => true, 'lay-verify' => 'title',]) ?>
+        <?= $form->field($model, 'bank_code')->dropDownList([
+            1 => 'aaa',
+            2 => 'bbb',
+            3 => 'ccc',
+            4 => 'ddd',
+        ]) ?>
 
         <?= $form->field($model, 'bank_name')->dateInput(['id' => 'date', 'placeholder' => 'yyyy-MM-dd', 'autocomplete' => 'off'], [
             'range' => '~',

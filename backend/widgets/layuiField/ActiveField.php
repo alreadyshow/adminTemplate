@@ -125,12 +125,13 @@ class ActiveField extends \yii\widgets\ActiveField
     /**
      * @param array $items
      * @param array $options
+     * @param bool $search 是否开启搜索选择 默认：关闭
      * @return $this
      */
-    public function dropDownList($items, $options = [])
+    public function dropDownList($items, $options = [], $search = false)
     {
         $options = array_merge($this->inputOptions, $options);
-
+        if ($search) $options = array_merge($options, ['lay-search' => true]);
         if ($this->form->validationStateOn === ActiveForm::VALIDATION_STATE_ON_INPUT) {
             $this->addErrorClassIfNeeded($options);
         }
@@ -199,6 +200,9 @@ class ActiveField extends \yii\widgets\ActiveField
         $id = $this->getInputId();
         $str = '';
         if ($conf) {
+            /**
+             * @document https://www.layui.com/doc/modules/laydate.html
+             */
             $keyWords = ['type', 'range', 'format', 'value', 'isInitValue', 'min', 'max', 'trigger', 'show', 'position', 'zIndex', 'showBottom', 'btns', 'lang', 'theme', 'calendar', 'mark'];
 
             foreach ($conf as $key => $item) {
@@ -209,9 +213,9 @@ class ActiveField extends \yii\widgets\ActiveField
                     foreach ($item as $value) {
                         $str .= "'{$value}',";
                     }
-                    $str = rtrim($str,',');
+                    $str = rtrim($str, ',');
                     $str .= "]";
-                }else{
+                } else {
                     $str .= ",{$key}: '{$item}'";
                 }
             }
@@ -226,7 +230,7 @@ var laydate = layui.laydate;
   });
 JS;
 
-        $this->form->layuiJs =  new JsExpression($js);
+        $this->form->layuiJs = new JsExpression($js);
         return $this;
     }
 
