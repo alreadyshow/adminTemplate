@@ -27,12 +27,10 @@ $this->params['breadcrumbs'][] = $this->title;
             ]
         ]); ?>
 
-        <?= $form->field($model, 'bank_code')->dropDownList([
-            1 => 'aaa',
-            2 => 'bbb',
-            3 => 'ccc',
-            4 => 'ddd',
-        ], ['lay-verify' => 'title']) ?>
+        <?= $form->field($model, 'bank_code')->checkboxList([0 => 'nan', 1 => 'nv', 2 => 'sss']) ?>
+
+        <?= $form->field($model, 'bank_code')->switchInput() ?>
+        <?= $form->field($model, 'bank_code')->radioList([0 => 'nan', 1 => 'nv', 2 => 'sss']) ?>
 
         <?= $form->field($model, 'bank_name')->dateInput(['id' => 'date', 'placeholder' => 'yyyy-MM-dd', 'autocomplete' => 'off'], [
             'range' => '~',

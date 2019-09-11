@@ -65,7 +65,7 @@ class BankAgentCodeController extends Controller
     public function actionCreate()
     {
         $model = new TSBankAgentCode();
-
+        $model->bank_code = 0;
         if ($model->load(Yii::$app->request->post())) {
             if (!$model->save()) {
                 Yii::$app->session->setFlash('warning', $model->getErrorSummary(1)[0]);

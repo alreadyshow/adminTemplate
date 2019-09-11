@@ -92,9 +92,7 @@ class ActiveForm extends \yii\widgets\ActiveForm
      */
     public function registerClientScript()
     {
-        $id = $this->options['id'];
         $options = $this->getClientOptions();
-        $attributes = Json::htmlEncode($this->attributes);
         $verify = '';
         if (is_string($options['verify'])) {
             $verify = $options['verify'];
