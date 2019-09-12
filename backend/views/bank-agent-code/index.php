@@ -1,8 +1,10 @@
 <?php
 
+use backend\widgets\layuiGridView\GridView;
 use yii\helpers\Html;
-use yii\grid\GridView;
 use yii\widgets\Pjax;
+
+use yii\grid\GridView as Grid;
 /* @var $this yii\web\View */
 /* @var $searchModel backend\models\TSBankAgentCodeSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -18,7 +20,6 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a(Yii::t('norm', 'Create'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
-    <?php Pjax::begin(); ?>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <?= GridView::widget([
@@ -26,14 +27,18 @@ $this->params['breadcrumbs'][] = $this->title;
         'filterModel' => $searchModel,
         'columns' => [
 
-            'id',
+            [
+                'attribute' => 'id',
+                'options' => [
+                    'width' => '80',
+                    'unresize' => true,
+                    'fixed' => true,
+                ],
+
+            ],
             'bank_code',
             'bank_name',
-
-            ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>
-
-    <?php Pjax::end(); ?>
 
 </div>
