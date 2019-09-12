@@ -5,6 +5,7 @@ namespace backend\controllers;
 use Yii;
 use common\models\TSBankAgentCode;
 use backend\models\TSBankAgentCodeSearch;
+use yii\helpers\Json;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -37,6 +38,21 @@ class BankAgentCodeController extends Controller
     {
         $searchModel = new TSBankAgentCodeSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        if (Yii::$app->request->isAjax) {
+            $page = Yii::$app->request->get('page', '');
+            $limit = Yii::$app->request->get('limit', '');
+
+            if ($page || $limit) {
+
+                return Json::encode([
+                    'code' => 0,
+                    'msg' => '请求成功！',
+                    'count' => $dataProvider->totalCount,
+                    'data' => $dataProvider->query->limit($limit)->offset(($page - 1) * $limit)->asArray()->all()
+                ]);
+            }
+        }
 
         return $this->render('index', [
             'searchModel' => $searchModel,

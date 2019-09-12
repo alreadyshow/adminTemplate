@@ -6,7 +6,7 @@
  * Time: 10:16
  */
 
-namespace backend\widgets;
+namespace backend\widgets\layuiPagination;
 
 class LinkPager extends \yii\widgets\LinkPager
 {
