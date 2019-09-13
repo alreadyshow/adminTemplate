@@ -11,10 +11,7 @@ namespace backend\widgets\layuiGridView;
 use Closure;
 use Yii;
 use yii\base\InvalidConfigException;
-use yii\db\Query;
 use yii\grid\DataColumn;
-use yii\helpers\Html;
-use yii\helpers\Json;
 use yii\helpers\Url;
 use yii\i18n\Formatter;
 use yii\web\JsExpression;
@@ -305,11 +302,12 @@ class GridView extends BaseListView
         foreach ($this->columns as $column) {
             if (is_array($column) || is_object($column)) {
                 $width = isset($column->options['width']) ? $column->options['width'] : "''";
-                $fixed = isset($column->options['fixed']) ? $column->options['fixed'] : true;
-                $unresize = isset($column->options['unresize']) ? $column->options['unresize'] : true;
+                $fixed = isset($column->options['fixed']) ? $column->options['fixed'] : 'false';
+                $unresize = isset($column->options['unresize']) ? $column->options['unresize'] : 'false';
                 $totalRowText = isset($column->options['totalRowText']) ? $column->options['totalRowText'] : '合计：';
                 $label = $column->label ? $column->label : $column->attribute;
-                $cols .= ",{field:'{$column->attribute}', title:'{$label}', width: {$width}, fixed: {$fixed}, unresize: {$unresize}}";
+                $func = isset($column->options['value']) ? $column->options['value'] : 'false';
+                $cols .= ",{field:'{$column->attribute}', title:'{$label}', width: {$width}, fixed: {$fixed}, unresize: {$unresize}, templet: $func}";
             }
         }
 

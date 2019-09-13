@@ -2,9 +2,9 @@
 
 use backend\widgets\layuiGridView\GridView;
 use yii\helpers\Html;
-use yii\widgets\Pjax;
 
 use yii\grid\GridView as Grid;
+
 /* @var $this yii\web\View */
 /* @var $searchModel backend\models\TSBankAgentCodeSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -33,8 +33,10 @@ $this->params['breadcrumbs'][] = $this->title;
                     'width' => '80',
                     'unresize' => true,
                     'fixed' => true,
+                    'value' => new \yii\web\JsExpression("function (d) {
+                        return (d.id > 3) ? 333 : d.id ;
+                    }")
                 ],
-
             ],
             'bank_code',
             'bank_name',
