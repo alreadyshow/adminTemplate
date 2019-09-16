@@ -11,7 +11,9 @@ namespace backend\widgets\layuiGridView;
 use Closure;
 use Yii;
 use yii\base\InvalidConfigException;
+use yii\grid\Column;
 use yii\grid\DataColumn;
+use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\i18n\Formatter;
 use yii\web\JsExpression;
@@ -218,7 +220,7 @@ class GridView extends BaseListView
      * @var array the HTML attributes for the filter row element.
      * @see \yii\helpers\Html::renderTagAttributes() for details on how attributes are being rendered.
      */
-    public $filterRowOptions = ['class' => 'filters'];
+    public $filterRowOptions;
     /**
      * @var array the options for rendering the filter error summary.
      * Please refer to [[Html::errorSummary()]] for more details about how to specify the options.
@@ -229,12 +231,12 @@ class GridView extends BaseListView
      * @var array the options for rendering every filter error message.
      * This is mainly used by [[Html::error()]] when rendering an error message next to every filter input field.
      */
-    public $filterErrorOptions = ['class' => 'help-block'];
+    public $filterErrorOptions;
     /**
      * @var bool whatever to apply filters on losing focus. Leaves an ability to manage filters via yiiGridView JS
      * @since 2.0.16
      */
-    public $filterOnFocusOut = true;
+    public $filterOnFocusOut = false;
     /**
      * @var string the layout that determines how different sections of the grid view should be organized.
      * The following tokens will be replaced with the corresponding section contents:
@@ -257,6 +259,9 @@ class GridView extends BaseListView
         parent::init();
         if (!isset($this->filterRowOptions['id'])) {
             $this->filterRowOptions['id'] = $this->options['id'] . '-filters';
+        }
+        if (!isset($this->options['lay-filter'])) {
+            $this->options['lay-filter'] = 'filter-'.$this->options['id'];
         }
 
         $this->initColumns();
@@ -300,11 +305,18 @@ class GridView extends BaseListView
 
         $cols = "{title: '111', type: 'checkbox', fixed: 'left', totalRowText: '合计：'}";
         foreach ($this->columns as $column) {
+            if ($column instanceof ActionColumn) {
+                if (empty($column->filter)) $column->filter = $this->options['lay-filter'];
+                $column->init();
+                $view->registerJs($column->clientScript);
+                echo Html::tag('script',$column->toolbarTemplate,['type' => "text/html", 'id' => 'script-'.$id]);
+                $cols .= ",{fixed: 'right', title: '{$column->title}', toolbar: '#script-{$id}'}";
+                continue;
+            }
             if (is_array($column) || is_object($column)) {
                 $width = isset($column->options['width']) ? $column->options['width'] : "''";
                 $fixed = isset($column->options['fixed']) ? $column->options['fixed'] : 'false';
                 $unresize = isset($column->options['unresize']) ? $column->options['unresize'] : 'false';
-                $totalRowText = isset($column->options['totalRowText']) ? $column->options['totalRowText'] : '合计：';
                 $label = $column->label ? $column->label : $column->attribute;
                 $func = isset($column->options['value']) ? $column->options['value'] : 'false';
                 $cols .= ",{field:'{$column->attribute}', title:'{$label}', width: {$width}, fixed: {$fixed}, unresize: {$unresize}, templet: $func}";
@@ -323,7 +335,7 @@ table.render({
     ,autoSort: false
     //,loading: false
     ,totalRow: true
-    ,limit: 30
+    ,limit: 15
     ,cols: [[
       $cols
     ]]
