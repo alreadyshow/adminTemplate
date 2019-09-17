@@ -19,6 +19,10 @@ use yii\i18n\Formatter;
 use yii\web\JsExpression;
 use yii\widgets\BaseListView;
 
+/**
+ * Class GridView
+ * @package backend\widgets\layuiGridView
+ */
 class GridView extends BaseListView
 {
 
@@ -249,6 +253,8 @@ class GridView extends BaseListView
      */
     public $layout = "";
 
+    public $url;
+
 
     /**
      * Initializes the grid view.
@@ -261,7 +267,7 @@ class GridView extends BaseListView
             $this->filterRowOptions['id'] = $this->options['id'] . '-filters';
         }
         if (!isset($this->options['lay-filter'])) {
-            $this->options['lay-filter'] = 'filter-'.$this->options['id'];
+            $this->options['lay-filter'] = 'filter-' . $this->options['id'];
         }
 
         $this->initColumns();
@@ -303,13 +309,14 @@ class GridView extends BaseListView
         $id = $this->options['id'];
         $options = $this->getClientOptions();
 
-        $cols = "{title: '111', type: 'checkbox', fixed: 'left', totalRowText: '合计：'}";
+        $cols = "{type: 'checkbox', fixed: 'left', totalRowText: '合计：'}";
         foreach ($this->columns as $column) {
             if ($column instanceof ActionColumn) {
                 if (empty($column->filter)) $column->filter = $this->options['lay-filter'];
                 $column->init();
                 $view->registerJs($column->clientScript);
-                echo Html::tag('script',$column->toolbarTemplate,['type' => "text/html", 'id' => 'script-'.$id]);
+                echo Html::tag('script', $column->toolbarTemplate, ['type' => "text/html", 'id' => 'script-' . $id]);
+                echo Html::hiddenInput('csrfInput', Yii::$app->request->csrfToken, ['id' => 'csrfInput']);
                 $cols .= ",{fixed: 'right', title: '{$column->title}', toolbar: '#script-{$id}'}";
                 continue;
             }
@@ -329,7 +336,7 @@ var table = layui.table;
 table.render({
     elem: '#{$id}'
     ,title: '{$view->title}'
-    ,url: '{$options['filterUrl']}'
+    ,url: '{$this->url}'
     ,height: 'full'
     ,page: true
     ,autoSort: false

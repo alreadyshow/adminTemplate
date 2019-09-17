@@ -2,13 +2,16 @@
 
 namespace backend\controllers;
 
+use http\Exception\UnexpectedValueException;
 use Yii;
 use common\models\TSBankAgentCode;
 use backend\models\TSBankAgentCodeSearch;
 use yii\helpers\Json;
 use yii\web\Controller;
+use yii\web\Cookie;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\Response;
 
 /**
  * BankAgentCodeController implements the CRUD actions for TSBankAgentCode model.
@@ -39,25 +42,28 @@ class BankAgentCodeController extends Controller
         $searchModel = new TSBankAgentCodeSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
+        return $this->render('index', [
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    public function actionGetData()
+    {
         if (Yii::$app->request->isAjax) {
             $page = Yii::$app->request->get('page', '');
             $limit = Yii::$app->request->get('limit', '');
 
+            $dataProvider = TSBankAgentCode::find();
             if ($page || $limit) {
-
-                return Json::encode([
+                Yii::$app->response->format = Response::FORMAT_JSON;
+                return Yii::$app->response->data = [
                     'code' => 0,
                     'msg' => '请求成功！',
-                    'count' => $dataProvider->totalCount,
-                    'data' => $dataProvider->query->limit($limit)->offset(($page - 1) * $limit)->asArray()->all()
-                ]);
+                    'count' => $dataProvider->count(),
+                    'data' => $dataProvider->limit($limit)->offset(($page - 1) * $limit)->asArray()->all()
+                ];
             }
         }
-
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
     }
 
     /**
@@ -143,5 +149,27 @@ class BankAgentCodeController extends Controller
         }
 
         throw new NotFoundHttpException(Yii::t('norm', 'The requested page does not exist.'));
+    }
+
+    public function actionEdit()
+    {
+        $id = Yii::$app->request->post('id',false);
+        $bank_code = Yii::$app->request->post('bank_code',false);
+        if (false === $id) {
+            throw new NotFoundHttpException(Yii::t('norm', '缺少参数id'));
+        }
+
+        $model = TSBankAgentCode::findOne(['id' => $id]);
+        $model->bank_code = $bank_code;
+        if (!$model->save()) {
+            throw new UnexpectedValueException(Yii::t('norm', '数据错误！'));
+        }
+
+        Yii::$app->response->format = Response::FORMAT_JSON;
+
+        return [
+            'data' => 'success',
+            'code' => 1001,
+        ];
     }
 }

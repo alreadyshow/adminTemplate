@@ -20,6 +20,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
+        'url' => '/bank-agent-code/get-data',
         //'filterModel' => $searchModel,
         'columns' => [
 
@@ -43,20 +44,23 @@ $this->params['breadcrumbs'][] = $this->title;
                 'buttons' => [
                     'edit' => [
                         'options' => [],
-                        'content' => Html::a("编辑",'#',[
+                        'content' => Html::a("编辑", '#', [
                             'class' => 'layui-btn layui-btn-xs',
                             'lay-event' => 'edit',
                         ]),
-                        'script' => new \yii\web\JsExpression("layer.prompt({
+                        'script' => new \yii\web\JsExpression("
+                        layer.prompt({
                             formType: 2
                             ,value: data.bank_code
                           }, function(value, index){
-                            $.post('http://127.0.0.1:10088/examples/test.php', {\"data\": value}, function (data, stat) {
+                            var csrfToken = $('meta[name=\"csrf-token\"]').attr(\"content\");
+                            $.post('/bank-agent-code/edit', {'_csrf-backend': csrfToken, bank_code: value,id: data.id}, function (data, stat) {
                                 if (data.data == 'success') {
                                     obj.update({
-                                        email: value
+                                        bank_code: value
                                     });
                                     layer.close(index);
+                                    layer.msg('操作成功');
                                 }else{
                                     layer.close(index);
                                     layer.msg('操作失败');
@@ -66,7 +70,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     ],
                     'delete' => [
                         'options' => [],
-                        'content' =>  Html::a("删除",'#',[
+                        'content' => Html::a("删除", '#', [
                             'class' => 'layui-btn layui-btn-xs layui-btn-danger',
                             'lay-event' => 'delete',
                         ]),
